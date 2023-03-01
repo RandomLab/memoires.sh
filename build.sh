@@ -5,9 +5,12 @@ rm -rf dist/**
 for md in **/index.md; do
     dir=$(dirname $md)
     mkdir dist/${dir}
-    pandoc -s "${md}" -o dist/"${dir}"/index.html --template template.html
+    mkdir dist/${dir}/assets
+    cp -r assets/style.css dist/${dir}/assets/style.css
+    pandoc -s "${md}" -o dist/"${dir}"/index.html --template template.html --css assets/style.css 2>/dev/null
 done
 
-cp -r assets/style.css dist/style.css
+mkdir dist/assets
+cp -r assets/style.css dist/assets/style.css
 
-pandoc -s index.md -o dist/index.html --template template.html
+pandoc -s index.md -o dist/index.html --template template.html --css assets/style.css
